@@ -1,18 +1,12 @@
-"""
-핵심 : JOIN 필터가 작동하는 방식을 시각적으로 표현합니다.
-
-매개변수:
-- parent: 부모 위젯
-- join_type: JOIN 유형
-- key_a: 테이블 A의 JOIN 키
-- key_b: 테이블 B의 JOIN 키
-"""
 from tkinter import ttk
 import tkinter as tk
 from typing import List, Dict, Any, Tuple, Callable
 from join_engine import JoinEngine
 import utils
 
+"""
+핵심: JOIN 연산의 단계별 애니메이션을 관리하는 클래스입니다.
+"""
 
 class AnimationManager:
     """

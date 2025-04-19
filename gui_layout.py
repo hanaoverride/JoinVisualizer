@@ -1,11 +1,3 @@
-"""
-참조를 위해 새 창에서 입력 테이블을 표시합니다.
-
-매개변수:
-root: 루트 창
-table_a: 테이블 A 데이터
-table_b: 테이블 B 데이터
-"""
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 from typing import Callable, Dict, Any
