@@ -1,7 +1,3 @@
-"""
-핵심 : JoinVisualizer 애플리케이션의 메인 컨트롤러.
-UI 컴포넌트와 JOIN 엔진 간의 상호작용을 조정합니다.
-"""
 import tkinter as tk
 import json
 import platform

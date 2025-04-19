@@ -1,7 +1,3 @@
-"""
-핵심: JoinVisualizer 애플리케이션을 위한 사용자 정의 위젯 및 UI 유틸리티.
-툴팁 기능 및 사용자 정의 위젯 확장을 포함합니다.
-"""
 import tkinter as tk
 from tkinter import ttk, scrolledtext
 from typing import List, Dict, Any, Callable
