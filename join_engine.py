@@ -1,20 +1,3 @@
-"""
-핵심: 특정 행 쌍이 일치하는지 여부에 대한 설명을 생성합니다.
-
-매개변수:
-row_a: 테이블 A의 행
-row_b: 테이블 B의 행
-
-
---- chunk 11 ---
-
-key_a: 테이블 A의 JOIN 키
-key_b: 테이블 B의 JOIN 키
-join_type: JOIN 유형
-
-반환값:
-일치 상태에 대한 설명 문자열
-"""
 from typing import List, Dict, Any, Tuple, Set
 import utils
 
