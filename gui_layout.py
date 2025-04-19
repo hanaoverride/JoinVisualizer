@@ -260,33 +260,76 @@ class OutputPanel:
         """
         self.join_result_frame = ttk.Frame(self.tab_join_result)
         self.join_result_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-    
     def _setup_explanation_tab(self):
         """
         핵심: JOIN 설명 탭을 설정합니다.
         """
         self.explanation_result_frame = ttk.Frame(self.tab_explanation)
         self.explanation_result_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-    
+        
     def _setup_animation_tab(self):
         """
         핵심: 애니메이션 탭을 설정합니다.
-        """
-        self.animation_frame = ttk.Frame(self.tab_animation)
-        self.animation_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        """        # 전체 애니메이션 탭을 수직 배치로 구성
+        # 먼저 컨트롤 버튼 프레임 생성 (하단에 배치)
+        controls_frame = ttk.Frame(self.tab_animation)
+        controls_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
         
-        # 애니메이션 컨트롤
-        self.animation_controls = ttk.Frame(self.tab_animation)
-        self.animation_controls.pack(fill=tk.X, side=tk.BOTTOM, padx=5, pady=5)
+        # 컨트롤 버튼들을 그리드로 배치하여 더 나은 공간 활용
+        self.prev_button = ttk.Button(controls_frame, text="◀ 이전 단계", command=self.on_prev_step, width=15)
+        self.prev_button.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
         
-        self.prev_button = ttk.Button(self.animation_controls, text="이전 단계", command=self.on_prev_step)
-        self.prev_button.pack(side=tk.LEFT, padx=5, pady=5)
+        self.step_label = ttk.Label(controls_frame, text="단계 0/0", anchor="center")
+        self.step_label.grid(row=0, column=1, padx=10, pady=5)
         
-        self.next_button = ttk.Button(self.animation_controls, text="다음 단계", command=self.on_next_step)
-        self.next_button.pack(side=tk.LEFT, padx=5, pady=5)
+        self.next_button = ttk.Button(controls_frame, text="다음 단계 ▶", command=self.on_next_step, width=15)
+        self.next_button.grid(row=0, column=2, padx=10, pady=5, sticky=tk.E)
         
-        self.step_label = ttk.Label(self.animation_controls, text="단계 0/0")
-        self.step_label.pack(side=tk.LEFT, padx=5, pady=5)
+        # 그리드 열 가중치 설정 - 가운데 라벨이 더 많은 공간을 차지하도록 설정
+        controls_frame.columnconfigure(0, weight=1)  # 왼쪽 버튼
+        controls_frame.columnconfigure(1, weight=10)  # 중앙 라벨 (더 많은 비중)
+        controls_frame.columnconfigure(2, weight=1)  # 오른쪽 버튼
+        
+        # 애니메이션 내용이 표시될 프레임 생성 (상단에 배치하며 최대한 많은 공간 차지)
+        # 스크롤 가능한 프레임으로 구현하여 내용이 짤리지 않도록 함
+        content_container = ttk.Frame(self.tab_animation)
+        content_container.pack(side=tk.TOP, fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # 스크롤바 추가
+        scrollbar = ttk.Scrollbar(content_container)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # 스크롤 가능한 캔버스 생성
+        canvas = tk.Canvas(content_container, yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        # 스크롤바와 캔버스 연결
+        scrollbar.config(command=canvas.yview)
+        
+        # 캔버스 안에 실제 내용이 들어갈 프레임 생성
+        self.animation_frame = ttk.Frame(canvas)
+        
+        # 캔버스에 프레임 배치
+        canvas_frame = canvas.create_window((0, 0), window=self.animation_frame, anchor="nw")
+        
+        # 프레임 크기가 변경될 때 스크롤 영역 업데이트
+        def configure_scroll_region(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        
+        # 캔버스 크기가 변경될 때 내부 프레임 너비 조정
+        def configure_frame_width(event):
+            canvas.itemconfig(canvas_frame, width=event.width)
+        
+        # 이벤트 바인딩
+        self.animation_frame.bind("<Configure>", configure_scroll_region)
+        canvas.bind("<Configure>", configure_frame_width)
+        
+        # 마우스 휠 스크롤 지원
+        def on_mousewheel(event):
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        
+        # 바인딩 (Windows용)
+        canvas.bind_all("<MouseWheel>", on_mousewheel)
     
     def select_tab(self, index):
         """

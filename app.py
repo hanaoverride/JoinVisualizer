@@ -64,23 +64,18 @@ class JoinVisualizerApp:
         핵심 : 루트 윈도우 속성을 설정합니다.
         
         윈도우 크기, 제목, 화면 위치 등을 구성합니다.
-        """
+        """        
         self.root.title("JoinVisualizer")
-          # 화면 크기를 계산하고 윈도우 크기를 화면의 85%로 설정
+
+        # 화면 크기를 계산하고 윈도우 크기를 화면의 85%로 설정
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
         window_width = int(screen_width * 0.85)
         window_height = int(screen_height * 0.85)
         self.root.geometry(f"{window_width}x{window_height}")
-          # 시작 시 전체 화면 모드로 설정
-        # Windows는 'zoomed' 상태를 사용하고, 다른 플랫폼은 attributes를 사용함
-        if platform.system() == "Windows":
-            self.root.state('zoomed')  # Windows 전체 화면
-        else:
-            self.root.attributes('-zoomed', True)  # Linux 전체 화면
-            # Mac에서는 다음을 사용: self.root.attributes('-fullscreen', True)
         
         self.root.configure(padx=10, pady=10)
+
     def on_join_type_change(self, event=None):
         """
         핵심 : JOIN 유형 선택 변경을 처리합니다.
@@ -90,6 +85,7 @@ class JoinVisualizerApp:
         """
         join_type = self.input_panel.get_join_type()
         self.input_panel.update_explanation(join_type)
+
     def run_join_simulation(self):
         """
         핵심 : 현재 설정으로 JOIN 시뮬레이션을 실행합니다.

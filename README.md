@@ -11,6 +11,7 @@ JOIN 알고리즘의 작동 원리를 **직관적인 애니메이션과 시각�
   - [만든 목적](#만든-목적)
   - [만든 과정](#만든-과정)
   - [주요 기능](#주요-기능)
+  - [유의사항](#유의사항)
   - [설치 및 실행](#설치-및-실행)
     - [시스템 요구 사항](#시스템-요구-사항)
     - [실행 방법](#실행-방법)
@@ -51,6 +52,11 @@ Claude 3.7 Sonnet을 통해 빠르게 코드베이스를 만들고,
 - **직관적인 애니메이션**: 각 단계별 진행을 하나씩 넘기며 시청 가능
 - **설명 텍스트 연동**: JOIN 로직 설명과 시각 자료가 함께 제공됨
 
+## 유의사항
+
+프로그램의 경우 1920x1080 이상의 해상도에서 최적화되어 있습니다.
+해상도가 낮은 경우 UI가 깨지거나 애니메이션이 매끄럽지 않을 수 있습니다.
+
 ---
 
 ## 설치 및 실행
@@ -65,13 +71,16 @@ Claude 3.7 Sonnet을 통해 빠르게 코드베이스를 만들고,
 
 다음 명령어를 통해 실행합니다.
 ```bash
-git clone https://github.com/hanaoverride/sql-join-visualizer.git
-python sql-join-visualizer
+git clone https://github.com/hanaoverride/JoinVisualizer.git
+python JoinVisualizer
 ```
 
-1. 배포된 exe 파일을 통해 실행하는 경우
+2. 배포된 exe 파일을 통해 실행하는 경우
    
-sql-join-visualizer.exe를  다운로드하여 실행합니다.
+최신 릴리즈(가장 상단)의 JoinVisualizer.exe를 다운로드하여 실행합니다.
+
+Releases 바로가기:
+https://github.com/hanaoverride/JoinVisualizer/releases
 
 ---
 
